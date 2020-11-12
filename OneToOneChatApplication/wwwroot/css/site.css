@@ -69,3 +69,25 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* SignalR style */
+
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.control-group {
+    padding-top: 50px;
+}
+
+label {
+    width: 100px;
+}
+
+#signalr-message-panel {
+    height: calc(100vh - 200px);
+}

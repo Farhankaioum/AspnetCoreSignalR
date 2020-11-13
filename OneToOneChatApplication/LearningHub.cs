@@ -18,6 +18,12 @@ namespace OneToOneChatApplication
             await Clients.Caller.ReceiveMessage(GetMessageWithName(message));
         }
 
+        [Authorize]
+        public async Task SendMessageToSpecificUser(string userId, string message)
+        {
+            await Clients.User(userId).ReceiveMessage(GetMessageWithName(message));
+        }
+
         public async Task SendToOthers(string message)
         {
             await Clients.Others.ReceiveMessage(GetMessageWithName(message));
@@ -70,7 +76,7 @@ namespace OneToOneChatApplication
         private string GetMessageWithName(string message)
         {
             if (Context?.User?.Identity?.Name != null)
-                return $"{Context.User.Identity.Name} said: {message}";
+                return $"{Context.User.Identity.Name.Split('@')[0]} said: {message}";
 
             return message;
         }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 <div class="row" style="padding-top: 50px;">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="control-group">
             <div>
                 <label for="broadcast">Message</label>
@@ -63,8 +63,42 @@
             <button id="btn-group-remove">Remove User from Group</button>
         </div>
     </div>
-    <div class="col-md-7">
-        <p>SignalR Messages:</p>
-        <pre id="signalr-message-panel"></pre>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <p>SignalR Messages:</p>
+                <pre id="signalr-message-panel"></pre>
+            </div>
+            <div class="col-md-6">
+                <p>Private Messages:</p>
+                <pre id="private-message-panel"></pre>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-3">
+        @foreach (var user in Model.Users)
+        {
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h3 class="card-title text-muted">@user.UserName</h3>
+                </div>
+                <div class="card-body">
+                    <img src="" alt="user" />
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <div>
+                            <input type="hidden" id="userid" value="@user.Id" />
+                            <label for="self-message">Message</label>
+                            <input type="text" id="user-specific-message" name="self-message" />
+                        </div>
+                        <div class="mr-4 mt-2">
+                            <button id="btn-user-specific-message" class="btn btn-info">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

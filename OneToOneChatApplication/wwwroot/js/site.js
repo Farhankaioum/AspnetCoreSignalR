@@ -5,6 +5,7 @@
 
 connection.on("ReceiveMessage", (message) => {
     $('#signalr-message-panel').prepend($('<div />').text(message));
+    $('#private-message-panel').prepend($('<div />').text(message));
 });
 
 $('#btn-broadcast').click(function () {
@@ -12,9 +13,15 @@ $('#btn-broadcast').click(function () {
     connection.invoke("BroadcastMessage", message).catch(err => console.error(err.toString()));
 });
 
-$('#btn-self-message').click(function () {
-    var message = $('#self-message').val();
-    connection.invoke("SendToCaller", message).catch(err => console.error(err.toString()));
+//$('#btn-self-message').click(function () {
+//    var message = $('#self-message').val();
+//    connection.invoke("SendToCaller", message).catch(err => console.error(err.toString()));
+//});
+
+$('#btn-user-specific-message').click(function () {
+    var message = $('#user-specific-message').val();
+    var userId = $('#userid').val();
+    connection.invoke("SendMessageToSpecificUser", userId, message).catch(err => console.error(err.toString()));
 });
 
 $('#btn-others-message').click(function () {

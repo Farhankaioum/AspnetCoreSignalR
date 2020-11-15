@@ -82,8 +82,6 @@ namespace OneToOneChatApplication
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("CorsPolicy");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -100,6 +98,8 @@ namespace OneToOneChatApplication
             app.UseCookiePolicy();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

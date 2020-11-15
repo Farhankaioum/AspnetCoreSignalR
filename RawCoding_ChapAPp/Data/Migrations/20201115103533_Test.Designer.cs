@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RawCoding_ChapAPp.Data;
 
 namespace RawCoding_ChapAPp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201115103533_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,6 +160,9 @@ namespace RawCoding_ChapAPp.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -203,6 +208,8 @@ namespace RawCoding_ChapAPp.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -259,24 +266,6 @@ namespace RawCoding_ChapAPp.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("RawCoding_ChatApp.Models.ChatUser", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserRole")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "ChatId");
-
-                    b.HasIndex("ChatId");
-
-                    b.ToTable("ChatUsers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -328,26 +317,18 @@ namespace RawCoding_ChapAPp.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RawCoding_ChapAPp.Data.User", b =>
+                {
+                    b.HasOne("RawCoding_ChapAPp.Models.Chat", null)
+                        .WithMany("Users")
+                        .HasForeignKey("ChatId");
+                });
+
             modelBuilder.Entity("RawCoding_ChapAPp.Models.Message", b =>
                 {
                     b.HasOne("RawCoding_ChapAPp.Models.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RawCoding_ChatApp.Models.ChatUser", b =>
-                {
-                    b.HasOne("RawCoding_ChapAPp.Models.Chat", "Chat")
-                        .WithMany("Users")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RawCoding_ChapAPp.Data.User", "User")
-                        .WithMany("Chats")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

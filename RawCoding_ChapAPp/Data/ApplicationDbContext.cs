@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RawCoding_ChapAPp.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using RawCoding_ChatApp.Models;
 
 namespace RawCoding_ChapAPp.Data
 {
@@ -15,6 +12,28 @@ namespace RawCoding_ChapAPp.Data
         }
 
         public DbSet<Chat> Chats { get; set; }
+
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<ChatUser> ChatUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ChatUser>()
+                .HasKey(k => new { k.UserId, k.ChatId});
+
+            builder.Entity<ChatUser>()
+                .HasOne(u => u.User)
+                .WithMany(c => c.Chats)
+                .HasForeignKey(u => u.UserId);
+
+            builder.Entity<ChatUser>()
+                .HasOne(c => c.Chat)
+                .WithMany(u => u.Users)
+                .HasForeignKey(c => c.ChatId);
+                
+
+            base.OnModelCreating(builder);
+        }
     }
 }

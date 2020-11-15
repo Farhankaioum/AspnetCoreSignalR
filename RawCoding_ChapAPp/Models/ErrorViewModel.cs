@@ -1,6 +1,6 @@
 using System;
 
-namespace RawCoding_ChapAPp.Models
+namespace RawCoding_ChatApp.Models
 {
     public class ErrorViewModel
     {

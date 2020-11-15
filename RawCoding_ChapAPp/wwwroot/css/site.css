@@ -147,6 +147,7 @@ body {
         font-weight: bold;
         width: 100px;
         text-align: right;
+        margin-right: 32px;
     }
 
     .message > p {

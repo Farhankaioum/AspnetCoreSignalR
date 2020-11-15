@@ -8,6 +8,12 @@ namespace RawCoding_ChatApp.Models
     // for creating room/chat (private or group message)
     public class Chat
     {
+        public Chat()
+        {
+            Messages = new List<Message>();
+            Users = new List<ChatUser>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using RawCoding_ChapAPp.Data;
 using RawCoding_ChatApp.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -16,13 +17,28 @@ namespace RawCoding_ChapAPp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _ctx;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext ctx)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext ctx )
         {
             _logger = logger;
             _ctx = ctx;
         }
 
-        public IActionResult Index() => View();
+        public IActionResult Index() {
+
+            var chats = new List<Chat>();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                chats = _ctx.Chats
+                    .Include(u => u.Users)
+                    .Where(u => !u.Users.Any(u => u.UserId == userId))
+                    .ToList();
+                
+            }
+            return View(chats);
+        } 
 
         [HttpGet("{id}")]
         public IActionResult Chat(int id)
@@ -73,7 +89,22 @@ namespace RawCoding_ChapAPp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> JoinRoom(int id)
+        {
+            var chatUser = new ChatUser
+            {
+                ChatId = id,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                UserRole = UserRole.Member
+            };
 
+            _ctx.ChatUsers.Add(chatUser);
+            await _ctx.SaveChangesAsync();
+
+            return RedirectToAction("Chat", new { id = id});
+
+        }
 
         public IActionResult Privacy()
         {

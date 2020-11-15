@@ -1,4 +1,15 @@
-﻿@{
+﻿@model IEnumerable<Chat>
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
+<div class="side-menu">
+    @foreach (var chat in Model)
+    {
+        <a class="room-button" asp-controller="home" asp-action="JoinRoom" asp-route-id="@chat.Id">
+            @chat.Name
+        </a>
+    }
+</div>
 

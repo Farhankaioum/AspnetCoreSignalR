@@ -33,23 +33,19 @@
 
     <div class="main">
 
-        <div class="side-menu">
-            <vc:room max-priority="2" is-done="false">
-            </vc:room>
-            <button type="button" class="room-button" id="create-room-btn">
-                <strong>+</strong>
-            </button>
-        </div>
-        <div class="chat">
-            @RenderBody()
-        </div>
+
+        <vc:room> </vc:room>
     </div>
+    <div class="chat">
+        @RenderBody()
+    </div>
+
     <div class="modal" id="create-room-modal">
-        <button type="button" class="close1"  onclick="closeModal()">X</button>
+        <button type="button" class="close1" onclick="closeModal()">X</button>
         <form asp-controller="Home" asp-action="CreateRoom" class="modal-body">
             <header>Create Room</header>
             <div>
-                <input name="name"/>
+                <input name="name" />
             </div>
             <footer>
                 <button>Create</button>

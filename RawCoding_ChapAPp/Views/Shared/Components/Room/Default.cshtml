@@ -4,12 +4,16 @@
 
 }
 
-<div>
-    @foreach (var ch in Model)
+<div class="side-menu">
+    @foreach (var chat in Model)
     {
         <a class="room-button" href="#">
-            @ch.Name
+            @chat.Name
         </a>
     }
+
+    <button type="button" class="room-button" id="create-room-btn">
+        <strong>+</strong>
+    </button>
 
 </div>

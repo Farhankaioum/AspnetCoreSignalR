@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneToOneChatApplication", "OneToOneChatApplication\OneToOneChatApplication.csproj", "{AD979D4F-CF59-411D-8777-0C4411FD6B81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawCoding_ChapAPp", "RawCoding_ChapAPp\RawCoding_ChapAPp.csproj", "{7E549135-266A-48B3-A946-4C2507BA3315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawCoding_ChatApp", "RawCoding_ChapAPp\RawCoding_ChatApp.csproj", "{7E549135-266A-48B3-A946-4C2507BA3315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

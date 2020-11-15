@@ -32,3 +32,4 @@ namespace RawCoding_ChapAPp.Models
         public DateTime Timestamp { get; set; }
     }
 }
+

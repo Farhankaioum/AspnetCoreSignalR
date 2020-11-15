@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RawCoding_ChapAPp.Data;
+using RawCoding_ChatApp.Models;
 using System.Linq;
 using System.Security.Claims;
 
@@ -20,7 +21,7 @@ namespace RawCoding_ChatApp.ViewComponents
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var chats = _ctx.ChatUsers
                 .Include(u => u.Chat)
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && x.Chat.Type == ChatType.Room)
                 .Select(x => x.Chat)
                 .ToList() ;
             return View(chats);
